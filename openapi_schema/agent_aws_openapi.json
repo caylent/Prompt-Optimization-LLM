@@ -1,0 +1,147 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Agent Assisstant API",
+        "version": "1.0.0",
+        "description": "APIs helpeing user with creating summarization or sentiment or general answer to the user question."
+    },
+    "paths": {
+        "/get_summary_instruction": {
+            "get": {
+                "summary": "Retrieve instruction for conversation summary analysis question",
+                "description": "It does not take any input parameter and returns instruction for questions asked specifically about summarizing the conversation",
+                "operationId": "querySummaryInstruction",              
+                "responses": {
+                    "200": {
+                        "description": "Retrieve instruction for conversation summary analysis question",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "instruction": {
+                                            "type": "string",
+                                            "description": "The instruction for the user question"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/get_sentiment_instruction": {
+            "get": {
+                "summary": "Retrieve instruction for conversation sentiment analysis question",
+                "description": "It does not take any input parameter and returns instruction for question ask specifically about sentiment of conversation",
+                "operationId": "querySentimentInstruction",              
+                "responses": {
+                    "200": {
+                        "description": "Retrieve instruction for conversation sentiment analysis question",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "instruction": {
+                                            "type": "string",
+                                            "description": "The instruction for the user question"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/get_other_question_instruction": {
+            "get": {
+                "summary": "Retrieve instruction for a general question not about sentiment or summary of the conversation",
+                "description": "It does not take any input parameter and returns instruction for a general question where it is not about summary or sentiment",
+                "operationId": "queryGeneralInstruction",              
+                "responses": {
+                    "200": {
+                        "description": "Retrieve instruction for a general question not about sentiment or summary of the conversation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "instruction": {
+                                            "type": "string",
+                                            "description": "The instruction for the user question"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/gen_conversation": {
+            "get": {
+                "summary": "Retrieve conversation history given conversation id",
+                "description": "Retrieve conversation history for the conversation id passed in the user question",
+                "operationId": "genConversation",
+                "parameters": [
+                    {
+                        "name": "ConversationId",
+                        "in": "path",
+                        "description": "Conversation id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "question",
+                        "in": "path",
+                        "description": "User question",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "instruction",
+                        "in": "path",
+                        "description": "instruction for answering the question",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "conversation history",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "conversation": {
+                                            "type": "string",
+                                            "description": "conversaiton history"
+                                        },
+                                        "question": {
+                                            "type": "string",
+                                            "description": "user question"
+                                        },
+                                        "instruction": {
+                                            "type": "string",
+                                            "description": "instruction for answering the question "
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

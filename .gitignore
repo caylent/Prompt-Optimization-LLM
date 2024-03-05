@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# aws sam temp folder
+.aws-sam
+
 # Distribution / packaging
 .Python
 build/

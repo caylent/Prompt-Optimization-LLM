@@ -1,0 +1,5 @@
+test the agent with these 3 example questions:
+
+"Can you summarize the conversion with id t_bde29ce2-4153-4056-9eb7-f4ad710505fe?"
+"what is the sentiment of the conversation with id t_bde29ce2-4153-4056-9eb7-f4ad710505fe?"
+"how many turns of conversation exists in conversation with id t_bde29ce2-4153-4056-9eb7-f4ad710505fe?"
