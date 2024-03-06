@@ -11,7 +11,7 @@ This project contains source code and supporting files for a serverless applicat
 
 The application uses several AWS resources, including Lambda functions and IAM roles/policies that are required to deploy an Amazon Bedrock Agent. These resources are defined in the `template.yaml` file in this project. You can update the template to add AWS resources through the same deployment process that updates your application code.
 
-After the deployment is complete please make sure to follow the instructions [https://docs.aws.amazon.com/bedrock/latest/userguide/agents-create.html] on AWS console to create the Bedrock Agent. Use the Agent instruction provided in the agent folder when creating the agent.
+After the deployment is complete please make sure to follow the instructions [https://docs.aws.amazon.com/bedrock/latest/userguide/agents-create.html] on AWS console to create the Bedrock Agent. Use the provided agent instruction (agent_instruction.txt) when creating the agent on the console.
 
 Additionally it includes the "function_calling" folder containing code for using Anthropic Claude’s function calling capability via Amazon Bedrock.
 
