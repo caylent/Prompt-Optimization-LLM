@@ -2,10 +2,10 @@
 
 This project contains source code and supporting files for a serverless application that you can deploy with the SAM CLI. It includes the following files and folders.
 
-- agent - Code for the agent's action group's Lambda function, requirements and Dockerfile.
+- agent - code for the agent's action group's Lambda function, requirements and Dockerfile.
 - data - chat data used for the demonstraton
-- openapi_schema - Unit tests for the application code.
-- test -  agent description and example user questions for demonstration
+- openapi_schema - OpenAPI Schema for Agent usage.
+- test -  example user questions for demonstration
 - template.yaml - A template that defines the application's AWS resources.
 
 
