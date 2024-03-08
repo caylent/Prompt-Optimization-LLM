@@ -1,3 +1,5 @@
+## this code is taken from Amazon Bedrock Workshop notebook: https://github.com/aws-samples/amazon-bedrock-workshop/blob/a390ae3231e4c1fcd88e698d3f8bc6def01c43f0/10_FunctionCalling/bedrock_boto3_function_calling_claude2.ipynb
+## the prompt is customized for my use case
 import sys
 from defusedxml import ElementTree
 from collections import defaultdict
@@ -154,7 +156,7 @@ def run_loop(prompt):
             print(partial_completion)
             break
         
-
+## uncomment one of the following user questions and run the python file: python3 app.py
 #user_input = "Can you summarize the conversion with id t_bde29ce2-4153-4056-9eb7-f4ad710505fe?"
 user_input = "what is the sentiment of the conversation with id t_bde29ce2-4153-4056-9eb7-f4ad710505fe?"
 #user_input = "how many turns of conversation exists in conversation with id t_bde29ce2-4153-4056-9eb7-f4ad710505fe?"
