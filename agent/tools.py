@@ -1,5 +1,6 @@
 import json
 import boto3
+import os
 
 def summary_gen_tool():
     """
@@ -32,8 +33,8 @@ def get_conversation_tool(id, question, instruction):
     """
     Use this tool to receive instruction from either summary_gen_tool or sentiment_gen_tool or general_gen_tool function and return instruction, user question and 1 JSON object containing the conversation history for the given conversation id.
     """
-    s3_bucket = '131578276461-us-east-1-secure-mlops'
-    file_key = 'train.json'
+    s3_bucket = os.environ['S3bucket']
+    file_key = os.environ['Filekey']
 
     s3 = boto3.client('s3')
 

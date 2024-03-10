@@ -3,8 +3,18 @@ Transform: AWS::Serverless-2016-10-31
 Description: >
   Sample SAM Template for prompt-optimize
 
+Parameters:
+  S3bucket: 
+    Type: String
+    Description: S3 bucket where data is located
+    Default: 131578276461-us-east-1-secure-mlops
+  Filekey:
+    Type: String
+    Description: the file path for the sample data
+    Default: train.json
+
 Resources:
-  AgentFunction:
+  PromptAgentFunction:
     Type: AWS::Serverless::Function 
     Properties:
       PackageType: Image
@@ -12,13 +22,17 @@ Resources:
         - x86_64
       MemorySize: 250
       Timeout: 900
-      Role: !GetAtt LambdaBasicExecutionRole.Arn
+      Policies: arn:aws:iam::aws:policy/AdministratorAccess
+      Environment:
+        Variables:
+          S3bucket: !Ref S3bucket
+          Filekey: !Ref Filekey
     Metadata:
       Dockerfile: Dockerfile
       DockerContext: ./agent
-      DockerTag: bedrock-agent
+      DockerTag: bedrock-claude-agent
 
-  BedrockPolicy:
+  AmazonBedrockPolicy:
     Type: AWS::IAM::ManagedPolicy
     Properties:
       PolicyDocument:
@@ -28,7 +42,7 @@ Resources:
           Action: bedrock:*
           Resource: '*'
 
-  AmazonBedrockExecutionRoleForAgents:
+  BedrockExecutionRoleForAgents:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -39,51 +53,20 @@ Resources:
           Action: sts:AssumeRole
       Path: /
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/AmazonS3FullAccess
-        - arn:aws:iam::aws:policy/AWSLambda_FullAccess
-        - !Ref BedrockPolicy
-      RoleName: 'AmazonBedrockExecutionRoleForAgents_promptoptimization'
+        - arn:aws:iam::aws:policy/AdministratorAccess
+        - !Ref AmazonBedrockPolicy
+      RoleName: 'AmazonBedrockExecutionRoleForAgents_PromptOptimization'
 
-  LambdaBasicExecutionRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Statement:
-        - Effect: Allow
-          Principal:
-            Service: lambda.amazonaws.com
-          Action: sts:AssumeRole
-      Path: /
-      Policies:
-        - PolicyName: S3Access
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action:
-                  - s3:*
-                Resource: '*'
-        - PolicyName: AWSLambdaBasicExecutionRole
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action:
-                  - logs:CreateLogGroup
-                  - logs:CreateLogStream
-                  - logs:PutLogEvents
-                Resource: arn:aws:logs:*:*:*
-
-  ResourcePolicy:
+  LambdaResourcePolicy:
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName: !GetAtt AgentFunction.Arn
+      FunctionName: !GetAtt PromptAgentFunction.Arn
       Principal: bedrock.amazonaws.com
       SourceAccount: !Sub ${AWS::AccountId}
       SourceArn: !Sub arn:aws:bedrock:${AWS::Region}:${AWS::AccountId}:agent/*
 
 Outputs:
   BedrockAgentFunction:
-    Description: "Lambda Function ARN"
-    Value: !GetAtt AgentFunction.Arn
+    Description: "Action Group Lambda Function ARN"
+    Value: !GetAtt PromptAgentFunction.Arn
