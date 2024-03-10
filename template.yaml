@@ -7,7 +7,6 @@ Parameters:
   S3bucket: 
     Type: String
     Description: S3 bucket where data is located
-    Default: 131578276461-us-east-1-secure-mlops
   Filekey:
     Type: String
     Description: the file path for the sample data
